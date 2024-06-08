@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>UME - Ultra Music Event</title>
+</head>
+<body>
+    <header>
+        <img src="./inc/logo.png" alt="Logo" class="main-logo">
+        <nav class="main-nav">
+            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
+            <li><a class="menu-item" href="artists.php">Artyści</a></li>
+            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
+            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
+        </nav>
+        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
+    </header>
+
+    <section class="banner">
+        <div class="banner-text">
+            <h2>Ultra Music Event</h2>
+            <h3>Poznaj świat muzycznej rozpusty!</h3>
+            <p>UME to największe wydarzenie w regionie!</p>
+            <p id="artistTitle"></p>
+            <p id="stageTitle"></p>
+            <p id="barsTitle"></p>
+
+        </div>
+        <div class="banner-image">
+            <img src="pop-music-girls-band-performing-stage-outdoor-isometric.webp" alt="">
+        </div>
+    </section>
+
+    <script>
+        const artists = '10 artystów';
+        const stages = '3 sceny';
+        const bars = '8 barów';
+        let speed = 50;
+
+        function typeWriter(txt, elementId) {
+            let i = 0; 
+            function type() {
+                if (i < txt.length) {
+                    document.getElementById(elementId).innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+        
+        window.onload = function() {
+            setTimeout(function() {
+                typeWriter(artists, 'artistTitle');
+            }, 2000); 
+            setTimeout(function() {
+                typeWriter(stages, 'stageTitle');
+            }, 5000);
+            setTimeout(function() {
+                typeWriter(bars, 'barsTitle');
+            }, 7000);
+        };
+    </script>
+</body>
+</html>
