@@ -21,23 +21,34 @@
         <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
     </header>
 
-    <section class="login">
-        <div class="login-container">
-            <h2>Zaloguj się do swojego konta</h2>
-            <form action="login.php" method="post">
-                <div class="form-group">
-                    <label for="username">Nazwa użytkownika</label>
-                    <input type="text" id="username" name="username" required>
+    <section class="page-container">
+        <h1>Your Cart</h1>
+        <div class="cart-container">
+            <div class="cart-items">
+                <div class="cart-item">
+                    <img src="path/to/image.jpg" alt="Product Image">
+                    <div class="cart-item-details">
+                        <h3>Product Name</h3>
+                        <p>$99.99</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <label for="quantity">Qty:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    </div>
+                    <button class="btn">Remove</button>
                 </div>
-                <div class="form-group">
-                    <label for="password">Hasło</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn">Zaloguj się</button>
-            </form>
-            <p>Nie masz konta? <a href="register.html">Zarejestruj się</a></p>
+                <!-- Add more cart-item divs as needed -->
+            </div>
+            <div class="cart-summary">
+                <h2>Summary</h2>
+                <p>Subtotal: <span>$99.99</span></p>
+                <p>Tax: <span>$8.00</span></p>
+                <p>Total: <span>$107.99</span></p>
+                <a href="checkout.html" class="btn">Proceed to Checkout</a>
+            </div>
         </div>
     </section>
+    
 
     <footer>
         <div class="event-info">
