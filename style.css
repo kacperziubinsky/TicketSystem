@@ -148,3 +148,13 @@ ul{
     background: linear-gradient(135deg, #07050d, #060608);
     padding: 5vh 10vw;
 }
+
+/*Artists PAGE */
+.artists{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1f 1fr;
+    background: #07050d;
+    background: linear-gradient(135deg, #07050d, #060608);
+    padding: 5vh 10vw;
+}
