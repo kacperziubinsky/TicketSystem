@@ -34,6 +34,9 @@
                 <li>Darmowy parking</li>
                 <li>Dostęp do strefy gastro</li>
             </ul>
+            <label for="quantity-standard">Ilość:</label>
+            <input type="number" id="quantity-standard" value="1" min="1">
+            <button onclick="addToCart('Bilet Standard', 'quantity-standard', 69.99)">Dodaj do koszyka</button>
         </div>
 
         <div class="ticket-info">
@@ -132,5 +135,40 @@
         </div>
     </footer>
     <script src="/scripts/alert.js"></script>
+    <script>
+        function addToCart(product, quantityId, price) {
+            const quantity = document.getElementById(quantityId).value;
+            fetch('http://localhost/TicketSystem/addCart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'product': product,
+                    'quantity': quantity,
+                    'price': price
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON from the response
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas dodawania produktu do koszyka');
+            });
+        }
+    </script>
+    
+
 </body>
 </html>

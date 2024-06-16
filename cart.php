@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -24,20 +28,20 @@
     <section class="page-container">
         <h1>Your Cart</h1>
         <div class="cart-container">
-            <div class="cart-items">
-                <div class="cart-item">
-                    <img src="path/to/image.jpg" alt="Product Image">
-                    <div class="cart-item-details">
-                        <h3>Product Name</h3>
-                        <p>$99.99</p>
+        <div class="cart-items">
+                <?php foreach ($_SESSION["cart"] as $index => $item): ?>
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <h3><?php echo $item['product']; ?></h3>
+                            <p>$<?php echo $item['price']; ?></p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <label for="quantity-<?php echo $index; ?>">Qty:</label>
+                            <input type="number" id="quantity-<?php echo $index; ?>" name="quantity" min="1" value="<?php echo $item['quantity']; ?>">
+                        </div>
+                        <button class="btn delete-btn" data-index="<?php echo $index; ?>">Remove</button>
                     </div>
-                    <div class="cart-item-quantity">
-                        <label for="quantity">Qty:</label>
-                        <input type="number" id="quantity" name="quantity" min="1" value="1">
-                    </div>
-                    <button class="btn">Remove</button>
-                </div>
-                <!-- Add more cart-item divs as needed -->
+                <?php endforeach; ?>
             </div>
             <div class="cart-summary">
                 <h2>Summary</h2>
@@ -66,4 +70,5 @@
         </div>
     </footer>
 </body>
+
 </html>
