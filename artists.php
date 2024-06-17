@@ -32,27 +32,32 @@
         <h2>Poznaj artystów!</h2>
         
         <div class="artists">
-            <div class="single-artist">
-                <img src="https://via.placeholder.com/800x400" alt="Slide 1">
-                <div class="content">
-                    <h2>James Hype</h2>
-                    <p>DJ, producent, twórca hitu Ferrari.</p>
-                </div>
-            </div>
-            <div class="single-artist">
-                <img src="https://via.placeholder.com/800x400" alt="Slide 1">
-                <div class="content">
-                    <h2>James Hype</h2>
-                    <p>DJ, producent, twórca hitu Ferrari.</p>
-                </div>
-            </div>
-            <div class="single-artist">
-                <img src="https://via.placeholder.com/800x400" alt="Slide 1">
-                <div class="content">
-                    <h2>James Hype</h2>
-                    <p>DJ, producent, twórca hitu Ferrari.</p>
-                </div>
-            </div>
+            <?php
+            require('db.php');
+                $sql = "SELECT * FROM artists";
+
+                $result = $conn->query($sql);
+
+                    
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_object()) {
+                        echo "<div class='single-artist'>";
+                        echo "<img src='$row->Photo'> alt='{$row->Name}'";
+                        echo "<div class='content'>";
+                        echo "<h2>$row->Name</h2>";
+                        echo "<p class='white-text'>$row->Description</p>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+
+                }   
+                else{
+                    echo "Wystąpił błąd - brak danych z tabeli!";
+                }
+                
+            ?>
+
+
         </div>
 
     </section>
@@ -60,40 +65,26 @@
 
     <section class="tickets">
         
-        <div class="ticket-info">
-            <h3>Bilet Standard</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Darmowy parking</li>
-                <li>Dostęp do strefy gastro</li>
-            </ul>
-            
-        </div>
+    <?php
+            require('db.php');
+                $sql = "SELECT * FROM tickets";
 
-        <div class="ticket-info">
-            <h3>Bilet VIP</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Strzeżony parking VIP</li>
-                <li>Dostęp do strefy Gastro VIP</li>
-                <li>Wejście bez kolejki</li>
-                <li>Dostęp do strefy CHILL</li>
-            </ul>
+                $result = $conn->query($sql);
 
-        </div>
-
-        <div class="ticket-info">
-            <h3>Bilet ULTRA</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Strzeżony parking VIP</li>
-                <li>Dostęp do strefy Gastro VIP</li>
-                <li>Wejście bez kolejki</li>
-                <li>Dostęp do strefy CHILL</li>
-                <li>Afterparty z artystami</li>
-                <li>Obecność na backstage'u</li>
-            </ul>
-        </div>
+                    
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_object()) {
+                        echo "<div class='ticket-info'>";
+                        echo "<h3>Bilet <span class='color'>$row->Name</span></h3>";
+                        echo "$row->Included";
+                        echo "</div>";
+                    }
+                }   
+                else{
+                    echo "Wystąpił błąd - brak danych z tabeli!";
+                }
+                
+        ?>
 
     </section>
 

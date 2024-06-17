@@ -1,13 +1,14 @@
 <?php
-$sum = 0;
-$full_quantity = 0;
 session_start();
-if($_SESSION["cart"]){
-        foreach ($_SESSION["cart"] as $index => $item){
-            $sum += ($item['price'] * $item['quantity']);
-            $full_quantity += $item['quantity'];
-        } 
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fullname = htmlspecialchars($_POST['fullname']);
+    $email = htmlspecialchars($_POST['email']);
+    $address = htmlspecialchars($_POST['address']);
+    $city = htmlspecialchars($_POST['city']);
+    $post = htmlspecialchars($_POST['post']);
+    $zip = htmlspecialchars($_POST['zip']);
+    $cart = $_POST['cart'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -18,7 +19,7 @@ if($_SESSION["cart"]){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>UME - Twój koszyk</title>
+    <title>UME - Podsumowanie zamówienia</title>
 </head>
 <body>
     <header>
@@ -33,33 +34,38 @@ if($_SESSION["cart"]){
     </header>
 
     <section class="page-container">
-        <h1>Twój koszyk</h1>
-        <div class="cart-container">
-            <div class="cart-items">
-                <?php 
-                if($_SESSION["cart"]){
-                foreach ($_SESSION["cart"] as $index => $item): ?>
-                    <div class="cart-item" data-index="<?php echo $index; ?>">
-                        <div class="cart-item-details">
-                            <h3><?php echo $item['product']; ?></h3>
-                            <p><?php echo $item['price']; ?> zł</p>
+        <h1>Podsumowanie zamówienia</h1>
+        <div class="summary-container">
+            <h2>Dane klienta</h2>
+            <p>Imię i nazwisko: <?php echo $fullname; ?></p>
+            <p>Adres E-mail: <?php echo $email; ?></p>
+            <p>Adres: <?php echo $address; ?></p>
+            <p>Miasto: <?php echo $city; ?></p>
+            <p>Poczta: <?php echo $post; ?></p>
+            <p>Kod pocztowy: <?php echo $zip; ?></p>
+
+            <h2>Zawartość koszyka</h2>
+            <div class="summary-items">
+                <?php
+                $sum = 0;
+                $full_quantity = 0;
+                foreach ($cart as $index => $item): 
+                    $sum += ($item['price'] * $item['quantity']);
+                    $full_quantity += $item['quantity'];
+                ?>
+                    <div class="summary-item" data-index="<?php echo $index; ?>">
+                        <div class="summary-item-details">
+                            <h3><?php echo htmlspecialchars($item['product']); ?></h3>
+                            <p><?php echo htmlspecialchars($item['price']); ?> zł</p>
+                            <p><?php echo htmlspecialchars($item['quantity']); ?></p>
                         </div>
-                        <div class="cart-item-quantity">
-                            <label for="quantity-<?php echo $index; ?>">Qty:</label>
-                            <input type="number" id="quantity-<?php echo $index; ?>" name="quantity" min="1" value="<?php echo $item['quantity']; ?>">
-                        </div>
-                        <button class="btn delete-btn" data-index="<?php echo $index; ?>">Usuń</button>
                     </div>
-                <?php endforeach; } else{
-                    echo "<p>Koszyk jest pusty..</p>";
-                } ?>
+                <?php endforeach; ?>
             </div>
-            <div class="cart-summary">
-                <h2>Podsumowanie</h2>
+            <div class="summary-totals">
                 <p>Ilość: <span><?php echo $full_quantity; ?></span></p>
                 <p>Podatek: <span><?php echo round(($sum * 0.23), 2);?> zł</span></p>
                 <p>Suma: <span><?php echo $sum; ?> zł</span></p>
-                <a href="checkout.php" class="btn">Proceed to Checkout</a>
             </div>
         </div>
     </section>

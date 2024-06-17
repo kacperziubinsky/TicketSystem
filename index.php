@@ -42,38 +42,35 @@
     <section class="info">
         <h2>Poznaj artystów!</h2>
         
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/800x400" alt="Slide 1">
-                    <div class="content">
-                        <h2>James Hype</h2>
-                        <p>DJ, producent, twórca hitu Ferrari.</p>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/800x400" alt="Slide 2">
-                    <div class="content">
-                        <h2>Title 2</h2>
-                        <p>Description for Slide 2</p>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/800x400" alt="Slide 3">
-                    <div class="content">
-                        <h2>Title 3</h2>
-                        <p>Description for Slide 3</p>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/800x400" alt="Slide 3">
-                    <div class="content">
-                        <h2>Title 3</h2>
-                        <p>Description for Slide 3</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <?php
+            require('db.php');
+                $sql = "SELECT * FROM artists";
+
+                $result = $conn->query($sql);
+
+                    
+                if($result->num_rows > 0){
+                  echo "        <div class='swiper-container'>
+            <div class='swiper-wrapper'>";
+                    while($row = $result->fetch_object()) {
+                        echo "<div class='swiper-slide'> ";
+                        echo "<img src='$row->Photo'>";
+                        echo "<div class='content'>";
+                        echo "<h2>$row->Name</h2>";
+                        echo "<p class='white-text'>$row->Description</p>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    echo "</div></div>";
+                }   
+                else{
+                    echo "Wystąpił błąd - brak danych z tabeli!";
+                }
+                
+            ?>
+
+ 
 
         <a href="" class="btn" style="font-size: 32px;">Kup bilety</a>
     </section>
@@ -81,40 +78,27 @@
 
     <section class="tickets">
         
-        <div class="ticket-info">
-            <h3>Bilet Standard</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Darmowy parking</li>
-                <li>Dostęp do strefy gastro</li>
-            </ul>
-            
-        </div>
 
-        <div class="ticket-info">
-            <h3>Bilet VIP</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Strzeżony parking VIP</li>
-                <li>Dostęp do strefy Gastro VIP</li>
-                <li>Wejście bez kolejki</li>
-                <li>Dostęp do strefy CHILL</li>
-            </ul>
+        <?php
+            require('db.php');
+                $sql = "SELECT * FROM tickets";
 
-        </div>
+                $result = $conn->query($sql);
 
-        <div class="ticket-info">
-            <h3>Bilet ULTRA</h3>
-            <ul>
-                <li>Koncerty</li>
-                <li>Strzeżony parking VIP</li>
-                <li>Dostęp do strefy Gastro VIP</li>
-                <li>Wejście bez kolejki</li>
-                <li>Dostęp do strefy CHILL</li>
-                <li>Afterparty z artystami</li>
-                <li>Obecność na backstage'u</li>
-            </ul>
-        </div>
+                    
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_object()) {
+                        echo "<div class='ticket-info'>";
+                        echo "<h3>Bilet <span class='color'>$row->Name</span></h3>";
+                        echo "$row->Included";
+                        echo "</div>";
+                    }
+                }   
+                else{
+                    echo "Wystąpił błąd - brak danych z tabeli!";
+                }
+                
+        ?>
 
     </section>
 
