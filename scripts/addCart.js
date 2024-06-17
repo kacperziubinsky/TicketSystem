@@ -1,26 +1,24 @@
 function addToCart(product, quantityId, price) {
-    const quantity = document.getElementById(quantityId).value;
-    fetch('addCart.php', {
+    const quantity = $(`#${quantityId}`).val();
+    $.ajax({
+        url: 'addCart.php',
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+        data: {
+            product: product,
+            quantity: quantity,
+            price: price
         },
-        body: new URLSearchParams({
-            'product': product,
-            'quantity': quantity,
-            'price': price
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert(data.message);
-        } else {
-            alert('Błąd: ' + data.message);
+        success: function(data) {
+            if (data.status === 'success') {
+                showAlert('success', data.message)
+
+            } else {
+                alert('Błąd: ' + data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas dodawania produktu do koszyka');
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Wystąpił błąd podczas dodawania produktu do koszyka');
     });
 }
