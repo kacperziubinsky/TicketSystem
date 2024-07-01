@@ -1,15 +1,68 @@
 <?php
-session_start();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fullname = htmlspecialchars($_POST['fullname']);
-    $email = htmlspecialchars($_POST['email']);
-    $address = htmlspecialchars($_POST['address']);
-    $city = htmlspecialchars($_POST['city']);
-    $post = htmlspecialchars($_POST['post']);
-    $zip = htmlspecialchars($_POST['zip']);
-    $cart = $_POST['cart'];
+    session_start();
+
+if (!isset($_SESSION["user_id"])) {
+    die("You must be logged in to place an order.");
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fullname = htmlspecialchars(trim($_POST["fullname"]));
+    $email = filter_var($_POST["email"], FILTER_VALIDATE_EMAIL);
+    $address = htmlspecialchars(trim($_POST["address"]));
+    $city = htmlspecialchars(trim($_POST["city"]));
+    $post = htmlspecialchars(trim($_POST["post"]));
+    $zip = htmlspecialchars(trim($_POST["zip"]));
+
+    if (empty($fullname) || empty($email) || empty($address) || empty($city) || empty($post) || empty($zip)) {
+        die("Please fill out all required fields.");
+    }
+
+    if (!isset($_SESSION["order_total"])) {
+        die("Order total not found.");
+    }
+    $order_total = $_SESSION["order_total"];
+
+    require("db.php");
+
+    $sql_insert_order = "INSERT INTO orders (user_id, order_total, fullname, email, address, city, post, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_insert_order = $conn->prepare($sql_insert_order);
+    $user_id = $_SESSION["user_id"];
+    $stmt_insert_order->bind_param("idssssss", $user_id, $order_total, $fullname, $email, $address, $city, $post, $zip);
+    $full_quantity = 0;
+    $sum = 0;
+    if ($stmt_insert_order->execute()) {
+        $order_id = $stmt_insert_order->insert_id;
+
+        foreach ($_POST["cart"] as $index => $item) {
+            $product_name = $item['product'];
+            $price = $item['price'];
+            $quantity = $item['quantity'];
+            $full_quantity += $item['quantity'];
+            $sum += $price * $quantity;
+
+            $sql_insert_item = "INSERT INTO order_items (order_id, product_name, price, quantity) VALUES (?, ?, ?, ?)";
+            $stmt_insert_item = $conn->prepare($sql_insert_item);
+            $stmt_insert_item->bind_param("isdi", $order_id, $product_name, $price, $quantity);
+
+            $stmt_insert_item->execute();
+            $stmt_insert_item->close();
+        }
+
+        $_SESSION["cart"] = [];
+
+    } else {
+        echo "Error inserting order: " . $stmt_insert_order->error;
+    }
+
+    $stmt_insert_order->close();
+    $conn->close();
+} else {
+    header("Location: checkout.php");
+    exit();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -22,16 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>UME - Podsumowanie zamówienia</title>
 </head>
 <body>
-    <header>
-        <img src="./img/UME.png" alt="Logo" class="main-logo">
-        <nav class="main-nav">
-            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
-            <li><a class="menu-item" href="artists.php">Artyści</a></li>
-            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
-            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
-        </nav>
-        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
-    </header>
+<?php include("menu.php"); ?>
+
 
     <section class="page-container">
         <h1>Podsumowanie zamówienia</h1>
@@ -47,27 +92,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Zawartość koszyka</h2>
             <div class="summary-items">
                 <?php
-                $sum = 0;
-                $full_quantity = 0;
-                foreach ($cart as $index => $item): 
-                    $sum += ($item['price'] * $item['quantity']);
-                    $full_quantity += $item['quantity'];
-                ?>
+                foreach ($_POST["cart"] as $index => $item) {
+                    ?>
                     <div class="summary-item" data-index="<?php echo $index; ?>">
                         <div class="summary-item-details">
                             <h3><?php echo htmlspecialchars($item['product']); ?></h3>
-                            <p><?php echo htmlspecialchars($item['price']); ?> zł</p>
-                            <p><?php echo htmlspecialchars($item['quantity']); ?></p>
+                            <p><?php echo $item['price']; ?> zł</p>
+                            <p><?php echo $item['quantity']; ?></p>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
             <div class="summary-totals">
                 <p>Ilość: <span><?php echo $full_quantity; ?></span></p>
-                <p>Podatek: <span><?php echo round(($sum * 0.23), 2);?> zł</span></p>
+                <p>Podatek (23%): <span><?php echo round(($sum * 0.23), 2); ?> zł</span></p>
                 <p>Suma: <span><?php echo $sum; ?> zł</span></p>
             </div>
         </div>
+        <a href="myAccount.php" class="btn">Moje konto</a>
+
     </section>
 
     <footer>

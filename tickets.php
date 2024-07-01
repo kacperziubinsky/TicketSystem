@@ -13,16 +13,8 @@
     <title>UME - Ultra Music Event</title>
 </head>
 <body>
-    <header>
-        <img src="./img/UME.png" alt="Logo" class="main-logo">
-        <nav class="main-nav">
-            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
-            <li><a class="menu-item" href="artists.php">Artyści</a></li>
-            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
-            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
-        </nav>
-        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
-    </header>
+<?php include("menu.php"); ?>
+
 
     <section class="tickets">
         
@@ -38,8 +30,9 @@
                     echo "<div class='ticket-info'>";
                     echo "<h3>Bilet <span class='color'>{$row->Name}</span></h3>";
                     echo "{$row->Included}";
+                    echo "<span class='price'>{$row->Price}</span> <br/>";
                     echo "<label for='quantity-standard'>Ilość:</label>";
-                    echo "<input type='number' id='quantity-standard' value='1' min='1'>";
+                    echo "<input type='number' id='quantity-{$row->Name}' value='1' min='1'>";
                     echo "<button onclick=\"addToCart('Bilet {$row->Name}', 'quantity-{$row->Name}', {$row->Price})\">Dodaj do koszyka</button>";
                     echo "</div>";
                 }

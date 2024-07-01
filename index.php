@@ -13,16 +13,8 @@
     <title>UME - Ultra Music Event</title>
 </head>
 <body>
-    <header>
-        <img src="./img/UME.png" alt="Logo" class="main-logo">
-        <nav class="main-nav">
-            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
-            <li><a class="menu-item" href="artists.php">Artyści</a></li>
-            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
-            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
-        </nav>
-        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
-    </header>
+<?php include("menu.php"); ?>
+
 
     <section class="banner">
         <div class="banner-text">

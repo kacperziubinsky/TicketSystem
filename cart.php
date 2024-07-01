@@ -1,13 +1,19 @@
 <?php
+session_start();
+
 $sum = 0;
 $full_quantity = 0;
-session_start();
+
+if (!isset($_SESSION["cart"])) {
+    $_SESSION["cart"] = [];
+}
+
 if($_SESSION["cart"]){
         foreach ($_SESSION["cart"] as $index => $item){
             $sum += ($item['price'] * $item['quantity']);
             $full_quantity += $item['quantity'];
         } 
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -17,20 +23,13 @@ if($_SESSION["cart"]){
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>UME - Twój koszyk</title>
 </head>
 <body>
-    <header>
-        <img src="./img/UME.png" alt="Logo" class="main-logo">
-        <nav class="main-nav">
-            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
-            <li><a class="menu-item" href="artists.php">Artyści</a></li>
-            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
-            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
-        </nav>
-        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
-    </header>
+<?php include("menu.php"); ?>
+
 
     <section class="page-container">
         <h1>Twój koszyk</h1>
@@ -79,5 +78,8 @@ if($_SESSION["cart"]){
             <a href="myAccount.php">Moje konto</a>
         </div>
     </footer>
+
+    <script src="./scripts/alert.js"></script>
+    <script src="./scripts/updateCart.js"></script>
 </body>
 </html>

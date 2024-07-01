@@ -1,12 +1,15 @@
 <?php
-session_start();
+    session_start();
+
 $sum = 0;
 $full_quantity = 0;
-if($_SESSION["cart"]){
-    foreach ($_SESSION["cart"] as $index => $item){
+
+if ($_SESSION["cart"]) {
+    foreach ($_SESSION["cart"] as $index => $item) {
         $sum += ($item['price'] * $item['quantity']);
         $full_quantity += $item['quantity'];
-    } 
+    }
+    $_SESSION["order_total"] = $sum;
 }
 ?>
 <!DOCTYPE html>
@@ -21,16 +24,8 @@ if($_SESSION["cart"]){
     <title>UME - Checkout</title>
 </head>
 <body>
-    <header>
-        <img src="./img/UME.png" alt="Logo" class="main-logo">
-        <nav class="main-nav">
-            <li><a class="menu-item" href="index.html">Strona Główna</a></li>
-            <li><a class="menu-item" href="artists.php">Artyści</a></li>
-            <li><a class="menu-item" href="tickets.php">Bilety</a></li>
-            <li><a class="menu-item" href="myAccount.php">Moje konto</a></li>
-        </nav>
-        <a href="tickets.php" class="btn">Zarezerwuj teraz!</a>
-    </header>
+<?php include("menu.php"); ?>
+
 
     <section class="page-container">
         <h1>Checkout</h1>
@@ -67,7 +62,7 @@ if($_SESSION["cart"]){
                     <h2>Zawartość koszyka</h2>
                     <div class="summary-items">
                         <?php 
-                        if($_SESSION["cart"]){
+                        if ($_SESSION["cart"]) {
                             foreach ($_SESSION["cart"] as $index => $item): ?>
                                 <div class="summary-item" data-index="<?php echo $index; ?>">
                                     <div class="summary-item-details">
