@@ -299,6 +299,37 @@ footer .social{
 .login-container p a:hover {
     text-decoration: underline;
 }
+
+.ticket-info input[type=number]{
+    width: 50px; 
+    padding: 8px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    text-align: center; 
+    outline: none; 
+    transition: border-color 0.3s ease; 
+}
+
+.ticket-info input[type=number]:hover{
+    border-color: #3366ff;
+}
+
+.ticket-info button{
+    padding: 10px 20px;
+    background-color: #3366ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.ticket-info button:hover{
+    background-color: #2656af;
+
+}
 /* REGISTER SECTION */
 .register {
     display: flex;
