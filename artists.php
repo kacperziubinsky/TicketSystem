@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>UME - Ultra Music Event</title>
     <style>
@@ -21,7 +22,8 @@
 
     <section class="artis-page">
         <h2>Poznaj artystów!</h2>
-        
+            <input id="myInput" type="text" placeholder="Search..">
+
         <div class="artists">
             <?php
             require('db.php');
@@ -97,6 +99,15 @@
         </div>
     </footer>
 
-
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".single-artist").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </body>
 </html>
