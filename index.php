@@ -127,10 +127,10 @@
         </div>
 
         <div class="social">
-            <a href="">Strona główna</a>
-            <a href="">Artyści</a>
-            <a href="">Bilety</a>
-            <a href="">Moje konto</a>
+            <a href="index.php">Strona główna</a>
+            <a href="artist.php">Artyści</a>
+            <a href="tickets.php">Bilety</a>
+            <a href="myAccount.php">Moje konto</a>
 
         </div>
     </footer>

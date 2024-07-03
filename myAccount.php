@@ -95,8 +95,8 @@
         </div>
 
         <div class="social">
-            <a href="index.html">Strona główna</a>
-            <a href="artists.php">Artyści</a>
+            <a href="index.php">Strona główna</a>
+            <a href="artist.php">Artyści</a>
             <a href="tickets.php">Bilety</a>
             <a href="myAccount.php">Moje konto</a>
         </div>

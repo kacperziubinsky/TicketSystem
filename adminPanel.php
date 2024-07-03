@@ -219,14 +219,14 @@ require('db.php');
                     echo "<table>
                         <tr>
                             <th>ID</th>
-                            <th>User ID</th>
-                            <th>Order Total</th>
-                            <th>Full Name</th>
+                            <th>ID użytkownika</th>
+                            <th>Wartość zamówienia</th>
+                            <th>Imię i nazwisko </th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>City</th>
-                            <th>Post</th>
-                            <th>ZIP</th>
+                            <th>Miasto</th>
+                            <th>Poczta</th>
+                            <th>Kod pocztowy</th>
                             <th>Delete</th>
                         </tr>";
                     
@@ -263,8 +263,8 @@ require('db.php');
         </div>
 
         <div class="social">
-            <a href="index.html">Strona główna</a>
-            <a href="artists.php">Artyści</a>
+            <a href="index.php">Strona główna</a>
+            <a href="artist.php">Artyści</a>
             <a href="tickets.php">Bilety</a>
             <a href="myAccount.php">Moje konto</a>
         </div>
