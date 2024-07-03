@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p style="color: red;"><?php echo $error; ?></p>
                 <?php endif; ?>
             </form>
-            <p>Nie masz konta? <a href="register.html">Zarejestruj się</a></p>
+            <p>Nie masz konta? <a href="register.php">Zarejestruj się</a></p>
         </div>
     </div>
 

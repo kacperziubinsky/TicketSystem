@@ -58,7 +58,7 @@ if($_SESSION["cart"]){
                 <p>Ilość: <span><?php echo $full_quantity; ?></span></p>
                 <p>Podatek: <span><?php echo round(($sum * 0.23), 2);?> zł</span></p>
                 <p>Suma: <span><?php echo $sum; ?> zł</span></p>
-                <a href="checkout.php" class="btn">Proceed to Checkout</a>
+                <a href="checkout.php" class="btn">Finalizuj</a>
             </div>
         </div>
     </section>

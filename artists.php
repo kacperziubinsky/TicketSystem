@@ -14,6 +14,9 @@
             background:linear-gradient(0deg, rgba(88, 45, 209, 0.9), rgba(6, 4, 10, 0.9)), url(img/126856.webp) !important;
             background-size: cover !important;
         }
+        .artist-photo{
+            max-height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
 
     <section class="artis-page">
         <h2>Poznaj artystów!</h2>
-            <input id="myInput" type="text" placeholder="Search..">
+            <input id="myInput" type="text" placeholder="Wyszukaj..">
 
         <div class="artists">
             <?php
@@ -35,7 +38,7 @@
                 if($result->num_rows > 0){
                     while($row = $result->fetch_object()) {
                         echo "<div class='single-artist'>";
-                        echo "<img src='$row->Photo'> alt='{$row->Name}'";
+                        echo "<img class='artist-photo' src='img/$row->Photo' alt='{$row->Name}' />";
                         echo "<div class='content'>";
                         echo "<h2>$row->Name</h2>";
                         echo "<p class='white-text'>$row->Description</p>";

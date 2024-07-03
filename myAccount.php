@@ -42,6 +42,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>UME - Moje konto</title>
+    <style>
+        a{
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <?php include("menu.php"); ?>
@@ -60,10 +65,10 @@
                 <ul class="order-list">
                     <?php while ($order = $result_orders->fetch_assoc()): ?>
                         <li class="order-item">
-                            <p><strong>Numer zamówienia:</strong> <?php echo $order['order_id']; ?></p>
+                            <p><strong>Numer zamówienia:</strong> <?php echo $order['id']; ?></p>
                             <p><strong>Data zamówienia:</strong> <?php echo $order['order_date']; ?></p>
                             <p><strong>Łączna kwota zamówienia:</strong> <?php echo $order['order_total']; ?> zł</p>
-                            <a href="order_details.php?order_id=<?php echo $order['order_id']; ?>" class="btn">Szczegóły zamówienia</a>
+                            <a href="order_details.php?order_id=<?php echo $order['id']; ?>">Szczegóły zamówienia</a>
                         </li>
                     <?php endwhile; ?>
                 </ul>

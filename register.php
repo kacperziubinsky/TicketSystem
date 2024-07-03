@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <button type="submit" class="btn">Zarejestruj</button>
             </form>
-            <p>Posidasz konto? <a href="login.html">Zaloguj się!</a></p>
+            <p>Posidasz konto? <a href="login.php">Zaloguj się!</a></p>
         </div>
     </div>
 

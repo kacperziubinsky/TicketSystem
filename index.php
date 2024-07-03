@@ -47,7 +47,6 @@
             <div class='swiper-wrapper'>";
                     while($row = $result->fetch_object()) {
                         echo "<div class='swiper-slide'> ";
-                        echo "<img src='$row->Photo'>";
                         echo "<div class='content'>";
                         echo "<h2>$row->Name</h2>";
                         echo "<p class='white-text'>$row->Description</p>";

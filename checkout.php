@@ -28,7 +28,7 @@ if ($_SESSION["cart"]) {
 
 
     <section class="page-container">
-        <h1>Checkout</h1>
+        <h1>Podsumowanie</h1>
         <div class="checkout-container">
             <form action="summary.php" method="POST">
                 <div class="checkout-items">
